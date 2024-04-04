@@ -16,14 +16,32 @@ export default function App() {
   const [friends, setFriends] = useState([]) // careful what you initialize your state to
 
   // 🔥 STEP 1 - WE NEED STATE TO HOLD ALL VALUES OF THE FORM!
-  const formValues = {} // fix this using the state hook
+  const [formValues, setFormValues] = useState(initialFormValues) // fix this using the state hook
 
-  const updateForm = (inputName, inputValue) => {
+  const updateForm = (evt) => {
+    const {name, value} = evt.target
+
+    setFormValues( {
+      ...formValues, [name]: value
+    })
     // 🔥 STEP 8 - IMPLEMENT a "form state updater" which will be used inside the inputs' `onChange` handler
     //  It takes in the name of an input and its value, and updates `formValues`
   }
 
-  const submitForm = () => {
+  const submitForm = (evt) => {
+
+    evt.preventDefault()
+
+    const newFriend = {
+      username: formValues.username.trim(),
+      email: formValues.email.trim(),
+      role: formValues.role
+    }
+
+    if (!newFriend.username || !newFriend.email) return
+
+    axios.post()
+
     // 🔥 STEP 9 - IMPLEMENT a submit function which will be used inside the form's own `onSubmit`
     //  a) make a new friend object, trimming whitespace from username and email
     //  b) prevent further action if either username or email or role is empty string after trimming
