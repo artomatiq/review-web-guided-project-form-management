@@ -40,7 +40,13 @@ export default function App() {
 
     if (!newFriend.username || !newFriend.email) return
 
-    axios.post()
+    axios.post('mockURL', newFriend)
+      .then (res => {
+        setFriends(friends.concat(res.data))
+
+        setFormValues(initialFormValues)
+      })
+      .catch(err => console.log(err))
 
     // 🔥 STEP 9 - IMPLEMENT a submit function which will be used inside the form's own `onSubmit`
     //  a) make a new friend object, trimming whitespace from username and email
@@ -61,7 +67,9 @@ export default function App() {
         // 🔥 STEP 2 - The form component needs its props.
         //  Check implementation of FriendForm
         //  to see what props it expects.
-        values={{}}
+        values={formValues}
+        update={updateForm}
+        submit={submitForm}
       />
 
       {
